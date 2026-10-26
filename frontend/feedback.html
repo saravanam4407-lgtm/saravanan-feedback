@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraFeedback - Submit Review</title>
+  <meta name="description"
+    content="A premium feedback submission page. Write a detailed review for your purchased product.">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Inline script to prevent theme flash
+    (function() {
+      const storedTheme = localStorage.getItem('aurafeedback_theme') || 'light';
+      document.documentElement.setAttribute('data-theme-pre', storedTheme);
+    })();
+  </script>
+</head>
+
+<body data-theme="light">
+  <script>
+    // Apply pre-loaded theme directly to body
+    const preTheme = document.documentElement.getAttribute('data-theme-pre');
+    if (preTheme) {
+      document.body.setAttribute('data-theme', preTheme);
+    }
+  </script>
+
+  <!-- Creative Abstract Vector Background -->
+  <div class="creative-bg-container">
+    <!-- Wavy Corner Blobs -->
+    <!-- Top-Left Blob -->
+    <svg class="bg-blob tl" viewBox="0 0 400 400" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="grad-tl-1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-1-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-1-end)" />
+        </linearGradient>
+        <linearGradient id="grad-tl-2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-2-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-2-end)" />
+        </linearGradient>
+      </defs>
+      <path d="M 0,0 L 360,0 C 310,140 250,280 0,350 Z" fill="url(#grad-tl-1)" opacity="0.4" />
+      <path d="M 0,0 L 280,0 C 240,110 180,200 0,260 Z" fill="url(#grad-tl-2)" opacity="0.6" />
+    </svg>
+
+    <!-- Top-Right Blob -->
+    <svg class="bg-blob tr" viewBox="0 0 400 400" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="grad-tr-1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-1-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-1-end)" />
+        </linearGradient>
+        <linearGradient id="grad-tr-2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-3-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-3-end)" />
+        </linearGradient>
+      </defs>
+      <path d="M 400,0 L 40,0 C 90,140 150,280 400,350 Z" fill="url(#grad-tr-1)" opacity="0.4" />
+      <path d="M 400,0 L 120,0 C 160,110 220,200 400,260 Z" fill="url(#grad-tr-2)" opacity="0.6" />
+    </svg>
+
+    <!-- Bottom-Left Blob -->
+    <svg class="bg-blob bl" viewBox="0 0 400 400" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="grad-bl-1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-2-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-2-end)" />
+        </linearGradient>
+        <linearGradient id="grad-bl-2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-3-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-3-end)" />
+        </linearGradient>
+      </defs>
+      <path d="M 0,400 L 0,40 C 90,110 220,240 310,400 Z" fill="url(#grad-bl-1)" opacity="0.4" />
+      <path d="M 0,400 L 0,140 C 70,190 170,290 240,400 Z" fill="url(#grad-bl-2)" opacity="0.6" />
+    </svg>
+
+    <!-- Bottom-Right Blob -->
+    <svg class="bg-blob br" viewBox="0 0 400 400" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="grad-br-1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-1-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-1-end)" />
+        </linearGradient>
+        <linearGradient id="grad-br-2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-2-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-2-end)" />
+        </linearGradient>
+      </defs>
+      <path d="M 400,400 L 90,400 C 140,260 260,140 400,50 Z" fill="url(#grad-br-1)" opacity="0.4" />
+      <path d="M 400,400 L 160,400 C 210,310 310,240 400,180 Z" fill="url(#grad-br-2)" opacity="0.6" />
+    </svg>
+
+    <!-- Decorative Grids -->
+    <div class="bg-grid-dots dots-tl"></div>
+    <div class="bg-grid-dots dots-br"></div>
+
+    <!-- Concentric Rings -->
+    <div class="bg-concentric-rings rings-tr"></div>
+    <div class="bg-concentric-rings rings-bl"></div>
+
+    <!-- Floating Badges with Lucide Icons -->
+    <div class="bg-badge badge-left">
+      <i data-lucide="message-square-heart"></i>
+    </div>
+    <div class="bg-badge badge-tr">
+      <i data-lucide="message-square-text"></i>
+    </div>
+    <div class="bg-badge badge-right">
+      <i data-lucide="thumbs-up"></i>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <i data-lucide="message-square"></i>
+        <span>AuraFeedback</span>
+      </div>
+
+      <!-- Navigation links -->
+      <div class="nav-tabs" id="nav-tabs">
+        <a id="lnk-tab-portal" href="index.html" class="tab-btn">
+          <i data-lucide="shopping-bag"></i>
+          <span>Select Product</span>
+        </a>
+        <a id="lnk-tab-dashboard" href="dashboard.html" class="tab-btn">
+          <i data-lucide="bar-chart-2"></i>
+          <span>Analytics</span>
+        </a>
+        <a id="lnk-tab-admin" href="admin.html" class="tab-btn">
+          <i data-lucide="users"></i>
+          <span>Admin Portal</span>
+        </a>
+      </div>
+
+      <div class="controls">
+        <!-- Live DB Status -->
+        <div id="db-status-badge" class="db-status-badge" title="Database Connection Status">
+          <span class="db-status-dot"></span>
+          <span id="db-status-text">Connecting...</span>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle-btn" class="theme-btn" aria-label="Toggle light/dark theme">
+          <i data-lucide="sun" class="sun-icon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+      <!-- SECTION: FEEDBACK SUBMISSION -->
+      <div class="feedback-page-layout">
+        <div class="feedback-card-container">
+          <div class="feedback-card glass-card">
+            <h2 class="form-title" id="form-card-title">Submit Product Review</h2>
+
+            <form id="feedback-form" novalidate style="margin-top: 1.5rem;">
+              <!-- Selected Product Banner (Populated dynamically) -->
+              <div id="selected-product-banner" class="selected-product-banner">
+                <div class="selected-product-details">
+                  <img id="selected-product-thumb" class="selected-product-thumb" src="" alt="Product Thumbnail">
+                  <div class="selected-product-text">
+                    <div id="selected-product-name" class="selected-product-name">Loading...</div>
+                    <div id="selected-product-meta" class="selected-product-meta">Category</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 1. Rating Selector -->
+              <div class="form-group">
+                <label class="form-label">How would you rate this product?</label>
+                <div class="rating-picker-wrapper">
+                  <div class="rating-stars" id="rating-stars-container">
+                    <button type="button" class="star-btn" data-rating="1" aria-label="1 star out of 5"><i
+                        data-lucide="star"></i></button>
+                    <button type="button" class="star-btn" data-rating="2" aria-label="2 stars out of 5"><i
+                        data-lucide="star"></i></button>
+                    <button type="button" class="star-btn" data-rating="3" aria-label="3 stars out of 5"><i
+                        data-lucide="star"></i></button>
+                    <button type="button" class="star-btn" data-rating="4" aria-label="4 stars out of 5"><i
+                        data-lucide="star"></i></button>
+                    <button type="button" class="star-btn" data-rating="5" aria-label="5 stars out of 5"><i
+                        data-lucide="star"></i></button>
+                  </div>
+
+                  <div class="sentiment-indicator" id="sentiment-indicator">
+                    <span class="sentiment-emoji" id="sentiment-emoji">😐</span>
+                    <span class="sentiment-text" id="sentiment-text">Select a rating</span>
+                  </div>
+                </div>
+                <div class="error-message" id="rating-error">Please select a rating to continue.</div>
+              </div>
+
+              <!-- 2. Suggestion Comment (with Sentiment Prediction) -->
+              <div class="form-group">
+                <div class="label-row">
+                  <label class="form-label" for="feedback-comment">Tell us more about your experience</label>
+                  <div class="live-sentiment-pill neutral" id="live-sentiment-pill">
+                    <span class="pulse-dot"></span>
+                    <span id="live-sentiment-text">Analyzing sentiment...</span>
+                  </div>
+                </div>
+                <div class="textarea-wrapper">
+                  <textarea id="feedback-comment" rows="4"
+                    placeholder="Type details about product sizing, quality, look, or issues here..."></textarea>
+                </div>
+                <div class="error-message" id="comment-error">Please share some feedback details.</div>
+              </div>
+
+              <!-- 3. Quick Tags Selector -->
+              <div class="form-group">
+                <label class="form-label">Select matching tags (optional):</label>
+                <div class="quick-tags-container" id="quick-tags-container">
+                  <!-- Dynamically populated tags based on selected product -->
+                </div>
+              </div>
+
+              <!-- 4. User Details -->
+              <div class="form-row">
+                <div class="form-group col">
+                  <label class="form-label" for="feedback-name">Your Name (optional)</label>
+                  <input type="text" id="feedback-name" placeholder="e.g. John Doe">
+                </div>
+                <div class="form-group col">
+                  <label class="form-label" for="feedback-email">Your Email (optional)</label>
+                  <input type="email" id="feedback-email" placeholder="e.g. john@example.com">
+                  <div class="error-message" id="email-error">Please enter a valid email address.</div>
+                </div>
+              </div>
+
+              <!-- Form Submit -->
+              <button type="submit" class="btn btn-primary btn-submit-feedback" id="submit-feedback-btn">
+                <span>Submit Feedback</span>
+                <i data-lucide="send"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 AuraFeedback. Made with premium glassmorphism and origami-craft layouts.</p>
+    </footer>
+  </div>
+
+  <!-- SUCCESS MODAL (REUSED FOR FEEDBACK CONFIRMATION) -->
+  <div id="success-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-success-title">
+    <div class="modal-content text-center">
+      <div class="success-icon-wrapper">
+        <i data-lucide="check"></i>
+      </div>
+      <h3 id="modal-success-title">Review Submitted!</h3>
+      <p>Thank you for helping us grow. Your feedback has been received and analyzed successfully.</p>
+
+      <div class="order-summary-box">
+        <div class="order-summary-row">
+          <span>Ticket ID:</span>
+          <span id="modal-ticket-id" class="bold">AF-98274-TKT</span>
+        </div>
+        <div class="order-summary-row">
+          <span>Reviewed Item:</span>
+          <span id="modal-feedback-category" class="bold">Product Name</span>
+        </div>
+        <div class="order-summary-row">
+          <span>Analyzed Sentiment:</span>
+          <span id="modal-feedback-sentiment" class="bold color-success">Positive</span>
+        </div>
+      </div>
+
+      <div class="modal-actions"
+        style="display: flex; gap: 1rem; width: 100%; justify-content: center; margin-top: 1rem;">
+        <button id="modal-view-dashboard" class="btn btn-primary" style="flex: 1;">
+          <span>View Dashboard</span>
+          <i data-lucide="bar-chart-2"></i>
+        </button>
+        <button id="modal-close-success" class="btn btn-secondary" style="flex: 1;">
+          <span>Review Another</span>
+          <i data-lucide="plus"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Unified API Service -->
+  <script src="api.js"></script>
+
+  <!-- Feedback Page JavaScript logic -->
+  <script src="feedback.js"></script>
+</body>
+
+</html>

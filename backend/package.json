@@ -1,0 +1,23 @@
+{
+  "name": "aurafeedback-backend",
+  "version": "1.0.0",
+  "description": "REST API backend for AuraFeedback application with MySQL 8.0 support",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "mysql2": "^3.9.7"
+  },
+  "keywords": [
+    "feedback",
+    "review-system",
+    "mysql",
+    "sentiment-analysis",
+    "rest-api"
+  ],
+  "author": "Saravanan",
+  "license": "ISC"
+}

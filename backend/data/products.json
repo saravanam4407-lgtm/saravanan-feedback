@@ -1,0 +1,38 @@
+[
+  {
+    "id": "prod-1",
+    "name": "Zenith Noise-Cancelling Headphones",
+    "category": "Electronics",
+    "img": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&auto=format&fit=crop&q=80"
+  },
+  {
+    "id": "prod-2",
+    "name": "AuraFit Smart Watch",
+    "category": "Electronics",
+    "img": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&auto=format&fit=crop&q=80"
+  },
+  {
+    "id": "prod-3",
+    "name": "Summer Breeze Linen Dress",
+    "category": "Dress",
+    "img": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=300&auto=format&fit=crop&q=80"
+  },
+  {
+    "id": "prod-4",
+    "name": "Urban Explorer Denim Jacket",
+    "category": "Dress",
+    "img": "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=300&auto=format&fit=crop&q=80"
+  },
+  {
+    "id": "prod-5",
+    "name": "Vagabond Leather Sandals",
+    "category": "Sandals",
+    "img": "https://images.unsplash.com/photo-1562273589-10447af56263?w=300&auto=format&fit=crop&q=80"
+  },
+  {
+    "id": "prod-6",
+    "name": "Apex Air Cushion Shoes",
+    "category": "Shoes",
+    "img": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&auto=format&fit=crop&q=80"
+  }
+]

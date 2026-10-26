@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraFeedback - Select Purchased Item</title>
+  <meta name="description"
+    content="A premium feedback selection portal. Choose a product from your cart to write a review.">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Inline script to prevent theme flash
+    (function() {
+      const storedTheme = localStorage.getItem('aurafeedback_theme') || 'light';
+      document.documentElement.setAttribute('data-theme-pre', storedTheme);
+    })();
+  </script>
+</head>
+
+<body data-theme="light">
+  <script>
+    // Apply pre-loaded theme directly to body
+    const preTheme = document.documentElement.getAttribute('data-theme-pre');
+    if (preTheme) {
+      document.body.setAttribute('data-theme', preTheme);
+    }
+  </script>
+
+  <!-- Creative Abstract Vector Background -->
+  <div class="creative-bg-container">
+    <!-- Wavy Corner Blobs -->
+    <!-- Top-Left Blob -->
+    <svg class="bg-blob tl" viewBox="0 0 400 400" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="grad-tl-1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-1-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-1-end)" />
+        </linearGradient>
+        <linearGradient id="grad-tl-2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-2-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-2-end)" />
+        </linearGradient>
+      </defs>
+      <path d="M 0,0 L 360,0 C 310,140 250,280 0,350 Z" fill="url(#grad-tl-1)" opacity="0.4" />
+      <path d="M 0,0 L 280,0 C 240,110 180,200 0,260 Z" fill="url(#grad-tl-2)" opacity="0.6" />
+    </svg>
+
+    <!-- Top-Right Blob -->
+    <svg class="bg-blob tr" viewBox="0 0 400 400" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="grad-tr-1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-1-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-1-end)" />
+        </linearGradient>
+        <linearGradient id="grad-tr-2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-3-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-3-end)" />
+        </linearGradient>
+      </defs>
+      <path d="M 400,0 L 40,0 C 90,140 150,280 400,350 Z" fill="url(#grad-tr-1)" opacity="0.4" />
+      <path d="M 400,0 L 120,0 C 160,110 220,200 400,260 Z" fill="url(#grad-tr-2)" opacity="0.6" />
+    </svg>
+
+    <!-- Bottom-Left Blob -->
+    <svg class="bg-blob bl" viewBox="0 0 400 400" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="grad-bl-1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-2-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-2-end)" />
+        </linearGradient>
+        <linearGradient id="grad-bl-2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-3-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-3-end)" />
+        </linearGradient>
+      </defs>
+      <path d="M 0,400 L 0,40 C 90,110 220,240 310,400 Z" fill="url(#grad-bl-1)" opacity="0.4" />
+      <path d="M 0,400 L 0,140 C 70,190 170,290 240,400 Z" fill="url(#grad-bl-2)" opacity="0.6" />
+    </svg>
+
+    <!-- Bottom-Right Blob -->
+    <svg class="bg-blob br" viewBox="0 0 400 400" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="grad-br-1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-1-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-1-end)" />
+        </linearGradient>
+        <linearGradient id="grad-br-2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-2-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-2-end)" />
+        </linearGradient>
+      </defs>
+      <path d="M 400,400 L 90,400 C 140,260 260,140 400,50 Z" fill="url(#grad-br-1)" opacity="0.4" />
+      <path d="M 400,400 L 160,400 C 210,310 310,240 400,180 Z" fill="url(#grad-br-2)" opacity="0.6" />
+    </svg>
+
+    <!-- Decorative Grids -->
+    <div class="bg-grid-dots dots-tl"></div>
+    <div class="bg-grid-dots dots-br"></div>
+
+    <!-- Concentric Rings -->
+    <div class="bg-concentric-rings rings-tr"></div>
+    <div class="bg-concentric-rings rings-bl"></div>
+
+    <!-- Floating Badges with Lucide Icons -->
+    <div class="bg-badge badge-left">
+      <i data-lucide="message-square-heart"></i>
+    </div>
+    <div class="bg-badge badge-tr">
+      <i data-lucide="message-square-text"></i>
+    </div>
+    <div class="bg-badge badge-right">
+      <i data-lucide="thumbs-up"></i>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <i data-lucide="message-square"></i>
+        <span>AuraFeedback</span>
+      </div>
+
+      <!-- Navigation links -->
+      <div class="nav-tabs" id="nav-tabs">
+        <a id="lnk-tab-portal" href="index.html" class="tab-btn active">
+          <i data-lucide="shopping-bag"></i>
+          <span>Select Product</span>
+        </a>
+        <a id="lnk-tab-dashboard" href="dashboard.html" class="tab-btn">
+          <i data-lucide="bar-chart-2"></i>
+          <span>Analytics</span>
+        </a>
+        <a id="lnk-tab-admin" href="admin.html" class="tab-btn">
+          <i data-lucide="users"></i>
+          <span>Admin Portal</span>
+        </a>
+      </div>
+
+      <div class="controls">
+        <!-- Live DB Status -->
+        <div id="db-status-badge" class="db-status-badge" title="Database Connection Status">
+          <span class="db-status-dot"></span>
+          <span id="db-status-text">Connecting...</span>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle-btn" class="theme-btn" aria-label="Toggle light/dark theme">
+          <i data-lucide="sun" class="sun-icon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+      <!-- SECTION: CART SELECTION -->
+      <section id="cart-selection-section" class="tab-content-panel active">
+        <!-- Hero Tagline -->
+        <div class="hero-section glass-card text-center" style="padding: 3rem 2rem; margin-bottom: 3rem;">
+          <div class="hero-content" style="max-width: 800px; margin: 0 auto;">
+            <span class="hero-tagline"><i data-lucide="sparkles"></i> Purchased Items review</span>
+            <h1 class="hero-title">Select a Product to Review</h1>
+            <p class="hero-description" style="font-size: 1.05rem; line-height: 1.6; margin-top: 0.5rem;">
+              You have completed checkout on these items recently. Select a product below to provide your feedback. Your detailed reviews build better shopping experiences.
+            </p>
+          </div>
+        </div>
+
+        <!-- Centered Responsive Grid for Purchased Items -->
+        <div id="cart-selection-grid" class="cart-selection-grid">
+          <!-- Dynamically populated via JS -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 AuraFeedback. Made with premium glassmorphism and origami-craft layouts.</p>
+    </footer>
+  </div>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Unified API Service -->
+  <script src="api.js"></script>
+
+  <!-- Selection Page JavaScript logic -->
+  <script src="index.js"></script>
+</body>
+
+</html>

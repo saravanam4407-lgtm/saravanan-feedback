@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraFeedback - Admin Reviewers Portal</title>
+  <meta name="description"
+    content="Admin management portal for AuraFeedback. View reviewers, manage feedbacks, reply to customers, and track sentiments.">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Inline script to prevent theme flash
+    (function () {
+      const storedTheme = localStorage.getItem('aurafeedback_theme') || 'light';
+      document.documentElement.setAttribute('data-theme-pre', storedTheme);
+    })();
+  </script>
+</head>
+
+<body data-theme="light">
+  <script>
+    const preTheme = document.documentElement.getAttribute('data-theme-pre');
+    if (preTheme) {
+      document.body.setAttribute('data-theme', preTheme);
+    }
+  </script>
+
+  <!-- Creative Abstract Vector Background -->
+  <div class="creative-bg-container">
+    <svg class="bg-blob tl" viewBox="0 0 400 400" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="grad-tl-1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-1-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-1-end)" />
+        </linearGradient>
+        <linearGradient id="grad-tl-2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-2-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-2-end)" />
+        </linearGradient>
+      </defs>
+      <path d="M 0,0 L 360,0 C 310,140 250,280 0,350 Z" fill="url(#grad-tl-1)" opacity="0.4" />
+      <path d="M 0,0 L 280,0 C 240,110 180,200 0,260 Z" fill="url(#grad-tl-2)" opacity="0.6" />
+    </svg>
+
+    <svg class="bg-blob tr" viewBox="0 0 400 400" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="grad-tr-1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-1-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-1-end)" />
+        </linearGradient>
+        <linearGradient id="grad-tr-2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--blob-grad-3-start)" />
+          <stop offset="100%" stop-color="var(--blob-grad-3-end)" />
+        </linearGradient>
+      </defs>
+      <path d="M 400,0 L 40,0 C 90,140 150,280 400,350 Z" fill="url(#grad-tr-1)" opacity="0.4" />
+      <path d="M 400,0 L 120,0 C 160,110 220,200 400,260 Z" fill="url(#grad-tr-2)" opacity="0.6" />
+    </svg>
+
+    <div class="bg-grid-dots dots-tl"></div>
+    <div class="bg-grid-dots dots-br"></div>
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <i data-lucide="shield-check" style="color: var(--accent-color);"></i>
+        <span>AuraFeedback <span class="admin-badge-pill" style="font-size: 0.65rem; margin-left: 0.4rem; padding: 0.15rem 0.5rem;">Admin</span></span>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="nav-tabs" id="nav-tabs">
+        <a id="lnk-tab-portal" href="index.html" class="tab-btn">
+          <i data-lucide="shopping-bag"></i>
+          <span>Select Product</span>
+        </a>
+        <a id="lnk-tab-feedback" href="feedback.html" class="tab-btn">
+          <i data-lucide="pen-tool"></i>
+          <span>Submit Review</span>
+        </a>
+        <a id="lnk-tab-dashboard" href="dashboard.html" class="tab-btn">
+          <i data-lucide="bar-chart-2"></i>
+          <span>Analytics</span>
+        </a>
+        <a id="lnk-tab-admin" href="admin.html" class="tab-btn active">
+          <i data-lucide="users"></i>
+          <span>Admin Portal</span>
+        </a>
+      </div>
+
+      <div class="controls">
+        <!-- Live Database Status -->
+        <div id="db-status-badge" class="db-status-badge" title="Database Connection Status">
+          <span class="db-status-dot"></span>
+          <span id="db-status-text">Connecting...</span>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle-btn" class="theme-btn" aria-label="Toggle light/dark theme">
+          <i data-lucide="sun" class="sun-icon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+      <!-- Admin Header Row -->
+      <div class="admin-header-row">
+        <div class="admin-title-wrap">
+          <div class="admin-badge-pill">
+            <i data-lucide="database"></i>
+            <span>MySQL 8.0 Live Console</span>
+          </div>
+          <h1>
+            <span>Customer Reviewers Portal</span>
+          </h1>
+          <p>View all submitted reviews, monitor customer satisfaction, and reply to tickets</p>
+        </div>
+
+        <div class="admin-quick-actions">
+          <button class="btn btn-secondary btn-sm" id="btn-admin-refresh">
+            <i data-lucide="refresh-cw"></i> Refresh
+          </button>
+          <button class="btn btn-secondary btn-sm" id="btn-admin-export">
+            <i data-lucide="download"></i> Export CSV
+          </button>
+          <button class="btn btn-primary btn-sm" id="btn-admin-test-review">
+            <i data-lucide="plus-circle"></i> Add Demo Review
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick KPI Stats Row -->
+      <div class="kpi-grid" style="margin-bottom: 2rem;">
+        <div class="kpi-card glass-card">
+          <div class="kpi-card-header">
+            <span>Total Reviewers</span>
+            <div class="kpi-icon"><i data-lucide="users"></i></div>
+          </div>
+          <div class="kpi-value" id="admin-total-reviewers">0</div>
+          <div class="kpi-footer text-muted" id="admin-reviewers-footer">Loaded from database</div>
+        </div>
+
+        <div class="kpi-card glass-card">
+          <div class="kpi-card-header">
+            <span>Average Rating</span>
+            <div class="kpi-icon text-warning"><i data-lucide="star"></i></div>
+          </div>
+          <div class="kpi-value-row">
+            <div class="kpi-value" id="admin-avg-rating">0.0</div>
+            <span class="max-value">/ 5.0</span>
+          </div>
+          <div class="kpi-footer text-muted" id="admin-rating-stars-footer">⭐⭐⭐⭐⭐</div>
+        </div>
+
+        <div class="kpi-card glass-card">
+          <div class="kpi-card-header">
+            <span>Positive Ratio</span>
+            <div class="kpi-icon text-success"><i data-lucide="smile"></i></div>
+          </div>
+          <div class="kpi-value-row">
+            <div class="kpi-value" id="admin-positive-pct">0%</div>
+          </div>
+          <div class="kpi-footer text-muted" id="admin-positive-count">0 positive reviews</div>
+        </div>
+
+        <div class="kpi-card glass-card">
+          <div class="kpi-card-header">
+            <span>Open Tickets</span>
+            <div class="kpi-icon text-info"><i data-lucide="clock"></i></div>
+          </div>
+          <div class="kpi-value-row">
+            <div class="kpi-value" id="admin-open-count">0</div>
+          </div>
+          <div class="kpi-footer text-muted">Awaiting official resolution</div>
+        </div>
+      </div>
+
+      <!-- Search & Filters Toolbar -->
+      <div class="filters-card glass-card" style="margin-bottom: 1.5rem;">
+        <div class="filters-row">
+          <!-- Search input -->
+          <div class="filter-group flex-grow">
+            <label class="filter-label" for="admin-search-input">Search Reviewer Name, Email, or Comment</label>
+            <div class="search-input-wrapper">
+              <i data-lucide="search" class="search-icon"></i>
+              <input type="text" id="admin-search-input" placeholder="e.g. John Doe, aarav@example.com, shoes...">
+            </div>
+          </div>
+
+          <!-- Rating filter -->
+          <div class="filter-group">
+            <label class="filter-label" for="admin-filter-rating">Rating</label>
+            <select id="admin-filter-rating">
+              <option value="all">All Ratings</option>
+              <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option>
+              <option value="4">⭐⭐⭐⭐ (4 Stars)</option>
+              <option value="3">⭐⭐⭐ (3 Stars)</option>
+              <option value="2">⭐⭐ (2 Stars)</option>
+              <option value="1">⭐ (1 Star)</option>
+            </select>
+          </div>
+
+          <!-- Sentiment filter -->
+          <div class="filter-group">
+            <label class="filter-label" for="admin-filter-sentiment">Sentiment</label>
+            <select id="admin-filter-sentiment">
+              <option value="all">All Sentiments</option>
+              <option value="positive">Positive (Green)</option>
+              <option value="neutral">Neutral (Gray)</option>
+              <option value="negative">Negative (Red)</option>
+            </select>
+          </div>
+
+          <!-- Status filter -->
+          <div class="filter-group">
+            <label class="filter-label" for="admin-filter-status">Ticket Status</label>
+            <select id="admin-filter-status">
+              <option value="all">All Statuses</option>
+              <option value="open">Open</option>
+              <option value="in-progress">In Progress</option>
+              <option value="resolved">Resolved</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Reviewers Table Card -->
+      <div class="admin-table-card glass-card">
+        <div class="admin-table-toolbar">
+          <h2 class="admin-table-title">
+            <i data-lucide="list"></i>
+            <span>Customer Submissions (<span id="admin-table-count">0</span>)</span>
+          </h2>
+          <span style="font-size: 0.82rem; color: var(--text-muted);">
+            Changes to status or replies sync directly to MySQL database
+          </span>
+        </div>
+
+        <div class="admin-table-responsive">
+          <table class="admin-table" id="admin-reviews-table">
+            <thead>
+              <tr>
+                <th>Reviewer</th>
+                <th>Purchased Product</th>
+                <th>Rating & Sentiment</th>
+                <th>Review Message</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-table-body">
+              <!-- Dynamically populated via admin.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty State Container -->
+        <div id="admin-empty-state" class="admin-empty-state" style="display: none;">
+          <i data-lucide="inbox"></i>
+          <h3>No Customer Reviews Found</h3>
+          <p>There are no reviews matching your current filters or in the MySQL database.</p>
+          <div style="margin-top: 1.25rem;">
+            <a href="index.html" class="btn btn-primary btn-sm">
+              <i data-lucide="plus"></i> Write First Review
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 AuraFeedback Admin Console. Connected with MySQL 8.0 Database.</p>
+    </footer>
+  </div>
+
+  <!-- MODAL 1: VIEW REVIEW DETAILS -->
+  <div id="admin-details-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-details-title">
+    <div class="modal-content" style="max-width: 620px; text-align: left; padding: 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1.25rem;">
+        <h3 id="modal-details-title" style="margin: 0; font-family: var(--font-title); font-size: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+          <i data-lucide="file-text" style="color: var(--accent-color);"></i>
+          <span>Ticket Details: <span id="modal-ticket-id" style="color: var(--accent-color);"></span></span>
+        </h3>
+        <button id="modal-details-close" class="close-modal-btn" style="background: transparent; border: none; color: var(--text-primary); cursor: pointer;">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <!-- Reviewer Card -->
+      <div style="display: flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.03); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; border: 1px solid var(--border-color);">
+        <div id="modal-avatar" class="reviewer-avatar" style="width: 48px; height: 48px; font-size: 1.15rem;"></div>
+        <div>
+          <div id="modal-reviewer-name" style="font-weight: 700; font-size: 1.05rem;"></div>
+          <div id="modal-reviewer-email" style="font-size: 0.85rem; color: var(--text-muted);"></div>
+          <div id="modal-date" style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;"></div>
+        </div>
+      </div>
+
+      <!-- Product & Rating Info -->
+      <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.25rem;">
+        <img id="modal-product-img" src="" alt="Product" style="width: 50px; height: 50px; border-radius: var(--radius-sm); object-fit: cover; border: 1px solid var(--border-color);">
+        <div style="flex: 1;">
+          <div id="modal-product-name" style="font-weight: 600; font-size: 0.95rem;"></div>
+          <div style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.25rem;">
+            <div id="modal-rating-stars" class="admin-rating-stars"></div>
+            <span id="modal-sentiment-pill" class="badge"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comment Quote -->
+      <div style="margin-bottom: 1.25rem;">
+        <label style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.4rem;">Customer Comment</label>
+        <div id="modal-comment" style="padding: 1rem; background: rgba(0,0,0,0.15); border-radius: var(--radius-md); border-left: 3px solid var(--accent-color); font-size: 0.92rem; line-height: 1.5;"></div>
+      </div>
+
+      <!-- Tags -->
+      <div id="modal-tags-container" style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.25rem;"></div>
+
+      <!-- Replies History -->
+      <div id="modal-replies-section" style="margin-bottom: 1.5rem;">
+        <label style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.4rem;">Official Replies</label>
+        <div id="modal-replies-list" style="max-height: 140px; overflow-y: auto;"></div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div style="display: flex; justify-content: flex-end; gap: 0.75rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+        <button id="modal-open-reply-btn" class="btn btn-primary btn-sm">
+          <i data-lucide="message-circle"></i> Reply to Customer
+        </button>
+        <button id="modal-close-btn" class="btn btn-secondary btn-sm">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: ADMIN REPLY -->
+  <div id="admin-reply-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-reply-title">
+    <div class="modal-content" style="max-width: 580px; text-align: left; padding: 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1.25rem;">
+        <h3 id="modal-reply-title" style="margin: 0; font-family: var(--font-title); font-size: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+          <i data-lucide="send" style="color: var(--accent-color);"></i>
+          <span>Send Reply to Customer</span>
+        </h3>
+        <button id="modal-reply-close-x" class="close-modal-btn" style="background: transparent; border: none; color: var(--text-primary); cursor: pointer;">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <div style="margin-bottom: 1rem;">
+        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+          Replying to: <strong id="reply-to-name" style="color: var(--text-primary);"></strong>
+        </div>
+        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem; font-style: italic;" id="reply-to-quote"></div>
+      </div>
+
+      <!-- Quick Templates -->
+      <div style="margin-bottom: 1rem;">
+        <label style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.4rem;">Quick Templates</label>
+        <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+          <button type="button" class="tag-chip-btn" id="tpl-thanks">❤️ Thank Customer</button>
+          <button type="button" class="tag-chip-btn" id="tpl-apology">🙏 Apology & Support</button>
+          <button type="button" class="tag-chip-btn" id="tpl-resolved">✅ Issue Resolved</button>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 1.5rem;">
+        <label class="form-label" for="admin-reply-textarea">Your Response Message</label>
+        <textarea id="admin-reply-textarea" rows="5" placeholder="Write a professional and helpful reply to the customer..." style="width: 100%; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: rgba(0,0,0,0.2); color: var(--text-primary); font-family: var(--font-body); font-size: 0.9rem; resize: vertical;"></textarea>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.75rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+        <button id="btn-cancel-reply" class="btn btn-secondary btn-sm">Cancel</button>
+        <button id="btn-send-reply-submit" class="btn btn-primary btn-sm">
+          <i data-lucide="send"></i> Send Reply (Save to Database)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Unified API Service -->
+  <script src="api.js"></script>
+
+  <!-- Admin Page Script -->
+  <script src="admin.js"></script>
+</body>
+
+</html>
